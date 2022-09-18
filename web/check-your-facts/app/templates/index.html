@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<style>
+  
+  body {
+    background-color: #787;
+    margin: 0;
+  }
+
+  .container {
+    font-family: cursive;
+    text-align: center;
+  }
+
+  .container2 {
+    max-width: 70%;
+    margin: auto;
+  }
+  
+  img {
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center top;
+  }
+
+</style>
+<body>
+  <div class="container">
+  <img src="baby.gif">
+  <h1>The coolest facts</h1>
+  <form method="POST">
+    <input type="submit" name="query" value="space">
+    <input type="submit" name="query" value="geography">
+    <input type="submit" name="query" value="history">
+    <input type="submit" value="hint" disabled>
+  </form>
+
+  <h3>{{msg}} {{error}}</h3>
+  
+  <img src="{{ image }}">
+
+  </div>
+  <div class="container2">
+  <ul>
+    <h2>{{ category }}</h2>
+    {% for row in rows %}
+      <li>{{ row["fact"] }}</li>
+    {% endfor %}
+  </ul>
+  </div>
+  
+  <!-- admin note: check if the SQL statement used is safe. I think it should be ok since there cannot be user input, right? -->
+  <!-- c.execute("SELECT * FROM facts WHERE category='%s';" % category) -->
+
+</body>
+</html>

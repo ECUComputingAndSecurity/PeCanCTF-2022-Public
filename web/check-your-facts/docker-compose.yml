@@ -1,0 +1,8 @@
+#I will work on a compose template once I get a few things clarified
+version: "3"
+services:
+  web:
+    build: .
+    restart: always
+    ports:
+      - "5000:5000"

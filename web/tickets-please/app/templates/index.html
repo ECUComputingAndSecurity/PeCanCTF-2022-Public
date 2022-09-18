@@ -1,0 +1,29 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+<div style="display: flex; text-align: center;">
+  <div style="flex: 0 0 15%;">
+    <h1>Welcome to the traino</h1>
+    <form style="display: grid; width: 180px; margin: 15px;">
+    <button style="margin: 10px" type="submit" formaction="/get_ticket" formmethod="GET">Get a ticket</button>
+    <button style="margin: 10px" type="submit" formaction="/train" formmethod="GET">Go on the train</button>
+    <button style="margin: 10px" type="submit" formaction="/" formmethod="POST">Talk to transit officer</button>
+    </form>
+  </div>
+
+  <div style="flex: 1;">
+    <img style="margin: auto; display: block; width: 50%" src="ticketsplease.png"></img>
+    {% for i in hint %}
+      <p>{{ i[0] }}</p>
+    {% endfor %}
+  </div>
+</div>
+<!-- 
+HINT! https://github.com/wallarm/jwt-secrets/blob/master/jwt.secrets.list
+-->
+</body>
+</html>
+
+

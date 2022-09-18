@@ -1,0 +1,19 @@
+name: Check your facts
+author: Blair Johnston
+description: |-
+  Always check your facts. How are they stored, for example?
+
+  {{link}}
+
+flag: pecan{A-C4t_ha$_32-MuSc1e$,1n-3ach_34R}
+value: 250
+
+containers:
+  app:
+    build: .
+    ports: [5000]
+
+expose:
+  app:
+    - target: 5000
+      http: check-your-facts

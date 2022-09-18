@@ -1,0 +1,19 @@
+name: SQLi Gauntlet Part 1
+author: Blair Johnston
+description: |-
+  Try to bypass the login form for Carlos
+
+  {{link}}
+
+flag: pecan{Gauntl3t_lvl_1_!!!}
+value: 150
+
+containers:
+  app:
+    build: .
+    ports: [5000]
+
+expose:
+  app:
+    - target: 5000
+      http: sqli-gauntlet

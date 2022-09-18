@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li>
+        <a href="/">Home</a>
+      </li>
+      <li>
+        <a href="/login">Login</a>
+      </li>
+    </ul>
+  </nav>
+
+
+  <!-- I got dropped on the head as a child, so here I am, putting an SQL statement in client-side HTML -->
+  
+  <!-- c.execute("SELECT * FROM creds WHERE username='%s' AND password='%s';" % (un, pw)) -->
+  
+  <!-- Although this statement is vulnerable, users are properly verified server-side, so you will need to find valid usernames first -->
+  <div class="container">
+    <h1>Login</h1>
+  <form method="POST">
+    <label class="tag" for="un">Username</label><br>
+    <input type="text" id="un" name="uname"><br>
+    <label class="tag" for="pw">Password</label><br>
+    <input type="text" id="pw" name="pass"><br><br>
+    <input type="submit" value="Submit"> 
+  </form>
+  <a href="/filters">Read about our data security efforts</a>
+
+  <h3>{{msg}} {{error}}</h3>
+ 
+  </div>
+
+</body>
+</html>

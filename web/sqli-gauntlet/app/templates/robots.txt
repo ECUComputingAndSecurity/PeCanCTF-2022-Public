@@ -1,0 +1,9 @@
+<html>
+<body>
+<pre>
+User-agent: *
+Disallow: /flag
+Disallow: /hint
+</pre>
+</body>
+</html>

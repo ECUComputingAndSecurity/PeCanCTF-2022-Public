@@ -1,0 +1,19 @@
+name: Robots
+author: Blair Johnston
+description: |-
+  Why do robots hate apples?
+
+  {{link}}
+
+flag: pecan{1ts_bC-Th3y_4re_andr01dz.ha.ha}
+value: 75
+
+containers:
+  app:
+    build: .
+    ports: [5000]
+
+expose:
+  app:
+    - target: 5000
+      http: robots

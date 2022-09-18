@@ -1,0 +1,7 @@
+name: SQLi Gauntlet Part 2
+author: Blair Johnston
+description: |-
+  Try to bypass the login form for the admin
+
+flag: pecan{u_so-smarttt-so_cl3v3rrrrr}
+value: 200

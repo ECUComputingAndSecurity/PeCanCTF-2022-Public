@@ -1,0 +1,17 @@
+name: Poisoned
+author: Thomas Davy
+description: |-
+  I sure hope being poisoned doesn't have any serious side effects!
+  {{link}}
+
+flag: pecan{p0is0n_l0g_ex3cute_c0de}
+value: 500
+containers:
+  app:
+    build: .
+    ports: [80]
+
+expose:
+  app:
+    - target: 80
+      http: poisoned

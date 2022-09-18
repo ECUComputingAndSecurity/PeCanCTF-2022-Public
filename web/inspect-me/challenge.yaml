@@ -1,0 +1,19 @@
+name: Inspect me
+author: Blair Johnston
+description: |-
+  Have you ever tried changing your grades on a school website? How did you do it?
+  
+  {{link}}
+
+flag: pecan{insp3ct_s0urc3_2_enum3r8!}
+value: 50
+
+containers:
+  app:
+    build: .
+    ports: [5000]
+
+expose:
+  app:
+    - target: 5000
+      http: inspect-me

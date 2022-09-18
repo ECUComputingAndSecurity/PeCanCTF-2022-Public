@@ -1,0 +1,9 @@
+name: SQLi Gauntlet Part 3
+author: Blair Johnston
+description: |-
+  Try to bypass the login form for the superadmin
+
+  {{link}}
+
+flag: pecan{I_have_ran_out_of_flag_name_ideas}
+value: 250

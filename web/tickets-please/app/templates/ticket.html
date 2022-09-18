@@ -1,0 +1,10 @@
+<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+
+<div class="container">
+<h1>Here is your ticket m8</h1>
+
+<p style="font-size: 15px;">{{ token }}</p>
+<a href="/train">Board the train</a>
+<a href="javascript:history.back()">Go back</a>
+</div>
+<img style="margin: 11px" src="ticketmachine.jpeg"></img>

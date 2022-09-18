@@ -1,0 +1,19 @@
+name: Tickets please!
+author: Blair Johnston (ECU)
+description: |-
+  If only there was a way to escape those pesky eshays...
+
+  {{link}}
+
+flag: pecan{bRu73f0rc3-w34k-K3yz}
+value: 450
+
+containers:
+  app:
+    build: .
+    ports: [5000]
+
+expose:
+  app:
+    - target: 5000
+      http: tickets-please

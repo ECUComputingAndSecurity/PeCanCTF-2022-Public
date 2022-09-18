@@ -1,0 +1,21 @@
+# Tickets please writeup 
+
+- need to fully explore the website to gain a basic understanding of how it works
+- uses a JWT token as a method of authorisation
+    - can be inferred from the token provided in the "tickets" page (given in plaintext or in the HTTP response)
+    - or from the hints given on the main page (talk to warden)
+- HS256 is vulnerable if configured poorly or with a weak, bruteforcible key
+    - hint from warden suggests bruteforcing HS256
+    - HS256 can also be inferred by decoding the JWT
+- can run a tool such as hashcat against a valid token (received from "tickets" page) using a JWT wordlist
+    - wordlists can be found online
+    - there is also a JWT wordlist commented out in the source code of the home page as a hint that can be found
+    - e.g., `hashcat -a 0 -m 16500 <jwt> <wordlist>`
+- **mylittlesecret** is the secret key
+    - use this key to forge a JWT in which the `conductor` attribute of the JWT is now True
+        - i.e., `{"conductor": false...etc}`
+- use the forged token to gain access to the "conductor's seat", and avoid getting shaken down by eshays :)
+    - will need to set the cookie as the new JWT somehow
+    - can be through web browser dev tools or burp suite
+    - request should have: `Cookie: jwt= <forged jwt>`
+- GG!
