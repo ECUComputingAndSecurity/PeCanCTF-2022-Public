@@ -1,0 +1,31 @@
+docker:
+  image:
+    prefix: {{IMAGE_PREFIX}}
+    template: {{IMAGE_TEMPLATE}}
+
+defaults:
+  containers:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 30Mi
+      limits:
+        cpu: 100m
+        memory: 150Mi
+
+backends:
+  - resolve: k8s
+    options:
+      domain: {{K8S_DOMAIN}}
+      annotations:
+        ingress:
+          kubernetes.io/ingress.class: azure/application-gateway
+          appgw.ingress.kubernetes.io/appgw-ssl-certificate: {{APPGW_CERT}}
+          appgw.ingress.kubernetes.io/ssl-redirect: "true"
+  - resolve: rctf
+    options:
+      scoring:
+        minPoints: 50
+        maxPoints: 500
+
+flagFormat: pecan{.*}

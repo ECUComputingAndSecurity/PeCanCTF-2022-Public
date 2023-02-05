@@ -1,0 +1,89 @@
+name: Deploy challenges
+
+on:
+  push:
+    branches:
+    - main
+    paths-ignore:
+    - /*
+    - .github/
+    - .vscode
+  workflow_dispatch:
+
+jobs:
+  deploy_chals:
+    name: Deploy to AKS with rCDS
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
+    env:
+      REGISTRY: cr[name]chals.azurecr.io
+      AKS_HOST: chals.domain.com
+      APPGW_CERT: appgw-cert
+      CHALS_GROUP: rg-[name]-chals
+      AKS_CLUSTER: aks-[name]-chals
+      RCTF_DOMAIN: ctf.domain.com
+
+    steps:
+      # actions/checkout#165
+      - name: Checkout repository
+        uses: nschloe/action-checkout-with-lfs-cache@v1
+
+      - name: Lint challenge.yaml files
+        uses: ibiqlik/action-yamllint@v3
+        continue-on-error: true
+        with:
+          config_data: "{extends: default, rules: {line-length: {level: warning}, document-start: disable}}"
+          file_or_dir: '**/challenge.yaml'
+
+      # image tags must be lowercase
+      - id: lowercase-repo
+        run: echo "::set-output name=data::${GITHUB_REPOSITORY,,}"
+
+      - name: Fill rCDS config template
+        uses: cuchi/jinja2-action@v1.2.0
+        with:
+          template: rcds.yaml.j2
+          output_file: rcds.yaml
+          strict: true
+          variables: |-
+            IMAGE_PREFIX=${{ env.REGISTRY }}/${{ steps.lowercase-repo.outputs.data }}
+            IMAGE_TEMPLATE="{{ challenge.id }}-{{ container.name }}"
+            K8S_DOMAIN=${{ env.AKS_HOST }}
+            APPGW_CERT=${{ env.APPGW_CERT }}
+
+      - name: Setup python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Requires federated OIDC
+      # https://docs.microsoft.com/en-us/azure/developer/github/connect-from-azure
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          tenant-id: ${{ secrets.TENANT_ID }}
+          client-id: ${{ secrets.CLIENT_ID }}
+          subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
+
+      - name: Login to Azure Container Registry
+        run: az acr login --name $REGISTRY
+
+      - name: Login to Azure Kubernetes Service
+        uses: azure/aks-set-context@v2.0
+        with:
+          resource-group: ${{ env.CHALS_GROUP}}
+          cluster-name: ${{ env.AKS_CLUSTER }}
+
+      - name: Deploy with rCDS
+        run: rcds deploy
+        continue-on-error: true
+        env:
+          RCDS_RCTF_URL: https://${{ env.RCTF_DOMAIN }}
+          RCDS_RCTF_TOKEN: ${{ secrets.RCTF_ADMIN_TOKEN }}

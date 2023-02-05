@@ -1,0 +1,58 @@
+ctfName: My CTF
+meta:
+  description: My description
+  imageUrl: https://cdn.domain.com/uploads/image.png
+faviconUrl: https://redpwn.storage.googleapis.com/branding/rctf-favicon.ico
+
+startTime: 1657022941000 # 2022-09-18T08:00:00+10:00
+endTime: 1663570800000 # 2022-09-19T17:00:00+10:00
+
+homeContent: |
+
+  <action-button href="/register">
+    <span>Register Now</span>
+    <svg viewBox="4 4 16 16"><path fill="#ffffff" d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z"></path></svg>
+  </action-button>
+
+  <timer></timer>
+
+  <sponsors></sponsors>
+
+sponsors:
+- icon: https://cdn.domain.com/uploads/image.png
+
+divisions:
+  bg: Beginner
+  int: Intermediate
+  adv: Advanced
+defaultDivision: bg
+divisionACLs:
+- match: any
+  value: ''
+  divisions:
+  - bg
+  - int
+  - adv
+
+leaderboard:
+  maxLimit: 100
+  maxOffset: 4294967296
+  updateInterval: 10000 # 10s
+  graphMaxTeams: 5
+  graphSampleTime: 1800000 # 15m
+
+userMembers: false # allow per-user emails (as opposed to per-team)
+loginTimeout: 3600000 # 1 hour. lifetime of links - registration, email update, and recovery
+
+proxy:
+  cloudflare: false
+  trust: false
+
+challengeProvider:
+  name: 'challenges/database'
+
+uploadProvider:
+  uploadProvider:
+  name: uploads/azblob
+  options:
+    containerUrl: https://cdn.yourdomain.com/uploads

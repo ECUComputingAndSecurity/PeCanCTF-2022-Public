@@ -1,0 +1,2 @@
+markupsafe==2.0.1
+https://github.com/pl4nty/rcds/archive/cba7234fc58fb5988ab4e8fca58d6a4b87d9aec3.tar.gz
